@@ -21,14 +21,14 @@ After API scaffolding installed. Then add the **Laravel\Passport\HasApiTokens** 
 Finally, in the application's **config/auth.php** configuration file, define an api authentication guard and set the driver option to passport.
 
 	'guards' => [
-		   'web' => [
-				  'driver' => 'session',
-				  'provider' => 'users',
-			],
-		   'api' => [
-				  'driver' => 'passport',
-				  'provider' => 'users',
-			 ],
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            ],
 	  ],
 
 ## Protecting Routes via Middleware
@@ -42,6 +42,7 @@ Passport includes an authentication guard that will validate access tokens on in
 
 Create new controller inside API directory:
 `php artisan make:controller`
+
 **name** : API\AuthController
 
 **type**:  API
@@ -79,22 +80,22 @@ Create following functions inside **AuthController**:
 	public function me(): Response
 	 {
 		 if(Auth::guard('api')->check()){
-				$user = Auth::guard('api')->user();
-				return Response(['data' => $user],200);
+            $user = Auth::guard('api')->user();
+            return Response(['data' => $user],200);
 		  } 
 		  return Response(['data' => 'Unauthorized'],401);
 	 }
 	 
 	 public function logout(): Response
 	 {
-		   if(Auth::guard('api')->check()){
-				 $accessToken = Auth::guard('api')->user()->token();
-				\DB::table('oauth_refresh_tokens')
-					 ->where('access_token_id', $accessToken->id)
-					 ->update(['revoked' => true]);
-				  $accessToken->revoke();
-				 return Response(['data' => 'Unauthorized','message' => 'User logout successfully.'],200);
-			  }
-			  return Response(['data' => 'Unauthorized'],401);
+        if(Auth::guard('api')->check()){
+            $accessToken = Auth::guard('api')->user()->token();
+            \DB::table('oauth_refresh_tokens')
+                ->where('access_token_id', $accessToken->id)
+                ->update(['revoked' => true]);
+                $accessToken->revoke();
+                return Response(['data' => 'Unauthorized','message' => 'User logout successfully.'],200);
+            }
+            return Response(['data' => 'Unauthorized'],401);
 	 }
 
