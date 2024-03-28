@@ -32,7 +32,7 @@ Finally, in the application's **config/auth.php** configuration file, define an 
 	  ],
 
 ## Protecting Routes via Middleware
-Passport includes an authentication guard that will validate access tokens on incoming requests. The api guard to use the passport driver, need to specify the **auth:api **middleware on any routes that should require a valid access token.
+Passport includes an authentication guard that will validate access tokens on incoming requests. The api guard to use the passport driver, need to specify the **auth:api** middleware on any routes that should require a valid access token.
 
 	Route::get('/user', function () {
 		//business logic
@@ -41,10 +41,13 @@ Passport includes an authentication guard that will validate access tokens on in
 ## Practical Implementation
 
 Create new controller inside API directory:
-php artisan make:controller
+`php artisan make:controller`
 **name** : API\AuthController
+
 **type**:  API
+
 **model**: User
+
 
 Add following **routes** inside **api.php**
 
